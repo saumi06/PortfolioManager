@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {ApiServiceService} from '../../services/api-service.service'
+import {ApiServiceService} from '../../services/api-service.service';
 
 
 
@@ -13,7 +13,6 @@ import {ApiServiceService} from '../../services/api-service.service'
 // TODO Create an interface of type T with code, data, and message
 export class ListStocksComponent implements OnInit {
 
-  
   stocks: any;
 
   constructor(private apiService: ApiServiceService) { }
