@@ -1,3 +1,25 @@
-<p>
-  list-stocks works!
-</p>
+<h3>Market Summary</h3>
+
+
+<table *ngIf="stocks && stocks.code == 200" ngClass="table table-dark table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Market State</th>
+      <th scope="col">Quote Type </th>
+      <th scope="col">Price </th>
+      <th scope="col">Change </th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let stock of stocks.response" (click)="openData(stock['symbol'])">
+      <td>{{stock['shortName']}} <span [style.color]="'green'">( {{ stock['symbol'] }} )</span></td>
+      <td>{{stock['marketState']}}</td>
+      <td>{{stock['quoteType']}}</td>
+      <td>{{stock['regularMarketPrice']['fmt']}}</td>
+      <td><span [style.color]="getStockChangeColor(stock['regularMarketChange'])">{{stock['regularMarketChange']['fmt']}} | {{stock['regularMarketChangePercent']['fmt']}}</span></td>
+    </tr>
+  </tbody>
+
+

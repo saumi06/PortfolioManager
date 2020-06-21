@@ -6,7 +6,8 @@ const routes: Routes = [
   {
     component: ListStocksComponent,
     path: 'list'
-  }
+  },
+  { path: '',   redirectTo: '/list', pathMatch: 'full' }, // redirect to `first-component`
 ];
 
 @NgModule({
