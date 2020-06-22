@@ -5,6 +5,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { AuthService } from '../../services/auth.service';
 
+import { ToastrService } from 'ngx-toastr';
+
+
 class USERS{
 constructor(public name){}
 }
@@ -27,6 +30,7 @@ public users: AngularFireList<USERS[]>;
   logIn() {
     console.log("LOGIN");
     this.auth.login();
+    
   }
   logOut() {
     console.log("LOGOUT!!");

@@ -6,9 +6,14 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ListStocksComponent } from './components/list-stocks/list-stocks.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+ 
+import { ToastrModule } from 'ngx-toastr';
 
 import { environment } from 'src/environments/environment';
 
@@ -20,9 +25,9 @@ import { AuthGuardService } from './services/auth-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
-  
     LoginComponent,
-    ProtectedComponent
+    ProtectedComponent,
+    ListStocksComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,10 @@ import { AuthGuardService } from './services/auth-guard.service';
     AngularFireModule.initializeApp(environment.firebase,'front-end'),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    HttpClientModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [AuthService,AuthGuardService],
   bootstrap: [AppComponent]
