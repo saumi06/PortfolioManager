@@ -4,6 +4,7 @@ import { ResponseError, ResponseResult, MarketChangeFormat } from '../../service
 import {ApiServiceService} from '../../services/api-service.service';
 
 import { ToastrService } from 'ngx-toastr';
+import { ThrowStmt } from '@angular/compiler';
 
 
 
@@ -57,12 +58,15 @@ export class ListStocksComponent implements OnInit {
     this.apiService.getStocksData().subscribe(
       res => {
         let property: string = "marketSummaryResponse"
-        if( res.hasOwnProperty(property)){
-          this.stocks =  this.createResult({code: 200, message: "Success", response: res[property]["result"]})
-          console.log(this.stocks);
+        let result: ResponseError | ResponseResult | null = this.apiService.convertToInterface(res, property);
+        if (result.code == 200) {
+          this.stocks = <ResponseResult>result;
         }
-        else if(res.hasOwnProperty("error") && res["error"] != null){
-          this.error = this.createError({message: res[property]["error"] , code: 500})
+        else if (result.code == 500){
+          
+          this.error = <ResponseError>result;
+
+
         }
 
       }

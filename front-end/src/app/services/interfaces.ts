@@ -6,7 +6,7 @@
 export interface ResponseResult{
   code: number,
   message: string
-  response: []
+  response: any
 }
 
 
@@ -19,4 +19,9 @@ export interface ResponseError{
 export interface MarketChangeFormat{
   raw: number, 
   fmt: string
+}
+
+
+export interface StockData{
+  symbol: string;
 }

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -21,13 +21,15 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './services/auth.service';
 import { ProtectedComponent } from './components/protected/protected.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { MainPageComponent } from './components/main-page/main-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ProtectedComponent,
-    ListStocksComponent
+    ListStocksComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +40,7 @@ import { AuthGuardService } from './services/auth-guard.service';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     HttpClientModule,
+    FormsModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot() // ToastrModule added
   ],
