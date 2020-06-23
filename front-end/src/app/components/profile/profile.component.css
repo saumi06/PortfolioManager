@@ -1,3 +1,6 @@
+.profile-image{
+    max-width: 120px;;
+}
 .nav-item a:hover{
     background-color: silver;
     cursor: pointer;

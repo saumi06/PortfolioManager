@@ -32,7 +32,4 @@ public users: AngularFireList<USERS[]>;
     this.auth.login();
     
   }
-  logOut() {
-    this.auth.logout();
-  }
 }

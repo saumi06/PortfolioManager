@@ -1,0 +1,7 @@
+.nav-item a:hover{
+    background-color: silver;
+    cursor: pointer;
+}
+input .search-bar{
+    padding:1vh;
+}

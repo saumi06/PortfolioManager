@@ -19,17 +19,17 @@ import { environment } from 'src/environments/environment';
 
 import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './services/auth.service';
-import { ProtectedComponent } from './components/protected/protected.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ProtectedComponent,
     ListStocksComponent,
-    MainPageComponent
+    MainPageComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
