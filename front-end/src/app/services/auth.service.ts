@@ -35,10 +35,11 @@ export class AuthService {
     this.toastr.success('Successfully Logged In', 'Congratulations', {
       timeOut: 3000
     });
+   
   }
   logout() {
     this.afAuth.signOut().then(() => { console.log('logged out') });
-    this.router.navigate(['']);
+ 
     this.toastr.success('Successfully Logged Out', 'Congratulations', {
       timeOut: 3000
     });

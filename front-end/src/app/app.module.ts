@@ -19,7 +19,7 @@ import { environment } from 'src/environments/environment';
 
 import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './services/auth.service';
-import { ProtectedComponent } from './components/protected/protected.component';
+
 import { AuthGuardService } from './services/auth-guard.service';
 import { MainPageComponent } from './components/main-page/main-page.component';
 
@@ -27,7 +27,6 @@ import { MainPageComponent } from './components/main-page/main-page.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    ProtectedComponent,
     ListStocksComponent,
     MainPageComponent
   ],

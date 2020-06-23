@@ -12,18 +12,21 @@ export class MainPageComponent implements OnInit {
   interestedStocks: Array<StockData>;
   // store the data of the stock that is clicked on or searched
   stockFocusData: StockData;
-
+  user;
   stockSymbol: string = '';
 
   constructor(private apiService: ApiServiceService, private authService: AuthService) {
     this.interestedStocks = []
     this.stockSymbol = '';
+    this.user = this.authService.authInfo;
    }
 
   ngOnInit(): void {
     // check for data in local storage 
   }
-
+  logOut() {
+    this.authService.logout();
+}
 
   /** 
    * Convert the result to our stock data interface 
