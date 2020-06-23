@@ -1,6 +1,6 @@
 <div class="container">
     <!-- Search form -->
-    <div class="md-form active-pink mt-0 sticky-top">
+    <div class="md-form active-pink mt-0 sticky-top search-box">
         <input class="form-control" type="text" placeholder="Search Stock ( symbol )" aria-label="Search"
             [(ngModel)]="stockSymbol" (keyup)="getStockData($event)" required>
     </div>
@@ -13,6 +13,7 @@
             </div>
 
             <div>
+                <h4>Market Summary</h4>
                 <app-list-stocks></app-list-stocks>
             </div>
 
@@ -20,10 +21,39 @@
 
 
 
-        <div class="col list-summary-main-page">
-            <h1>Summary</h1>
-        </div>
 
+    </div>
+
+  
+    <div class="stock-summary" *ngIf="stockFocusData">
+        <h3> Stock {{stockSymbol}} <span [style.color]="'#00FF00'">{{stockFocusData.response.financialData.currentPrice}} {{stockFocusData.response.financialData.financialCurrency}}</span></h3>
+        <div class="row">
+
+            <div class="col">
+                <h5>Key Statistics</h5>
+                <ul>
+                    <li>52 Week change <span class="stock-data">{{stockFocusData.response.keyStats.weekChange52}}</span></li>
+                    <li>Beta <span class="stock-data">{{stockFocusData.response.keyStats.beta}}</span></li>
+                    <li>Quaterly Growth <span class="stock-data">{{stockFocusData.response.keyStats.quaterlyGrowth}}</span></li>
+                    <li>Earning Per Share <span class="stock-data">{{stockFocusData.response.keyStats.eps}}</span></li>
+                    <li>Profit Earning <span class="stock-data">{{stockFocusData.response.keyStats.pe}}</span></li>
+                </ul>
+
+            </div>
+            <div class="col">
+                <h5>Financial Information</h5> 
+                    <li>Current Price <span class="stock-data">{{stockFocusData.response.financialData.currentPrice}}</span></li>
+                    <li>Current Ratio <span class="stock-data">{{stockFocusData.response.financialData.currentRatio}}</span></li>
+                    <li>Earning Growth <span class="stock-data">{{stockFocusData.response.financialData.earningGrowth}}</span></li>
+                    <li>Return on Assets <span class="stock-data">{{stockFocusData.response.financialData.roa}}</span></li>
+                    <li>Return on Equity <span class="stock-data">{{stockFocusData.response.financialData.roe}}</span></li>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" [chart]="expectedEarnings">
+            </div>
+            <div class="col"></div>
+        </div>
     </div>
 
 </div>

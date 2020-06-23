@@ -10,7 +10,7 @@
     </li>
   </ul>
 
-  <h3 class="display-4">Market Summary</h3>
+  <h3 class="display-4" *ngIf="!(user | async)?.uid">Market Summary</h3>
 
 
   <table *ngIf="stocks && stocks.code == 200" ngClass="table table-dark table-hover">
@@ -25,14 +25,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let stock of stocks.response" (click)="openData(stock['symbol'])">
-        <td>{{stock['shortName']}} <span [style.color]="'#00FF00'">( {{ stock['symbol'] }} )</span></td>
-        <td>{{stock['marketState']}}</td>
-        <td>{{stock['quoteType']}}</td>
-        <td>{{stock['regularMarketPrice']['fmt']}}</td>
+      <tr *ngFor="let stock of stocks.response" (click)="openData(stock.symbol)">
+        <td>{{stock.name}} <span [style.color]="'#00FF00'">( {{ stock.symbol }} )</span></td>
+        <td>{{stock.marketState}}</td>
+        <td>{{stock.quoteType}}</td>
+        <td>{{stock.price}}</td>
         <td><span
-            [style.color]="getStockChangeColor(stock['regularMarketChange'])">{{stock['regularMarketChange']['fmt']}} |
-            {{stock['regularMarketChangePercent']['fmt']}}</span></td>
+            [style.color]="getStockChangeColor(stock.changePercentRaw)">{{stock.changePrice}} |
+            {{stock.changePercent}}</span></td>
       </tr>
     </tbody>
   </table>

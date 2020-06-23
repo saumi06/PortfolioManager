@@ -14,9 +14,7 @@ export class ApiServiceService {
   constructor(private http: HttpClient) { }
 
 
-  createResult<T extends ResponseResult>(obj: T): ResponseResult{ return obj; }
 
-  createError<T extends ResponseError>(obj: T): ResponseError { return obj }
 
 
   makeRequest(url: string): Observable<Object> {
@@ -53,18 +51,5 @@ export class ApiServiceService {
   }
 
 
-  /** 
-   * This function converts the response to ResponseInterface or ResponseErrorInterface 
-   */
-  convertToInterface<T>(res: T, property: string): ResponseError | ResponseResult | null {
-    if(res == null) return null
 
-    if( res.hasOwnProperty(property)){
-      return  this.createResult({code: 200, message: "Success", response: res[property]["result"]})
-    }
-    else if(res.hasOwnProperty("error") && res["error"] != null){
-      return this.createError({message: res[property]["error"] , code: 500})
-    }
-
-  }
 }

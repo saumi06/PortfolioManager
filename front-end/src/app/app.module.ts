@@ -22,6 +22,7 @@ import { AuthService } from './services/auth.service';
 import { ProtectedComponent } from './components/protected/protected.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { MainPageComponent } from './components/main-page/main-page.component';
+import { ChartModule } from 'angular-highcharts';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MainPageComponent } from './components/main-page/main-page.component';
     AngularFireDatabaseModule,
     HttpClientModule,
     FormsModule,
+    ChartModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot() // ToastrModule added
   ],

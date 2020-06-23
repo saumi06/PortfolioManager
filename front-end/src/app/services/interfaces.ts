@@ -3,10 +3,10 @@
  */
 
 
-export interface ResponseResult{
+export interface ResponseResult {
   code: number,
   message: string
-  response: any
+  response: basicStockData | basicStockData[] | summaryStockData;
 }
 
 
@@ -22,6 +22,23 @@ export interface MarketChangeFormat{
 }
 
 
-export interface StockData{
+
+export interface basicStockData{
+  name: string;
   symbol: string;
+  marketState: string;
+  quoteType: string;
+  price: string;
+  changePrice: string;
+  changePercent: string;
+  changePercentRaw: number;
+
+}
+
+
+export interface summaryStockData{
+  keyStats: { weekChange52: String, beta: String, quaterlyGrowth: String, eps: String, pe: String },
+  earningsChart: {},
+  financialData: { currentPrice: String, financialCurrency: String, currentRatio: String, earningsGrowth: String, roa: String, roe: String },
+  meanDataChart: {targetLow: number, targetMedian: number, targetHigh: number}
 }
