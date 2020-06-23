@@ -38,7 +38,7 @@ export interface basicStockData{
 
 export interface summaryStockData{
   keyStats: { weekChange52: String, beta: String, quaterlyGrowth: String, eps: String, pe: String },
-  earningsChart: {},
+  earningsChart: Array<{actual: String, date: number, expected: String}> ,
   financialData: { currentPrice: String, financialCurrency: String, currentRatio: String, earningsGrowth: String, roa: String, roe: String },
   meanDataChart: {targetLow: number, targetMedian: number, targetHigh: number}
 }

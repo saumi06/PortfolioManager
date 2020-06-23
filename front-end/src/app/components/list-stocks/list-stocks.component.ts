@@ -21,7 +21,9 @@ export class ListStocksComponent implements OnInit {
   	error: ResponseError;
   	user;
 
-  	@Input() stocksInformation: ResponseResult;
+    @Input() stocksInformation: ResponseResult;
+    @Input() callback: any;
+    
 
 
   	createResult<T extends ResponseResult>(obj: T): ResponseResult { return obj; }
@@ -79,9 +81,7 @@ export class ListStocksComponent implements OnInit {
   openData(stockSymbol: string) {
     // check if user is logged in 
     if (this.authService.authInfo) {
-      this.toastr.success('View additional information', stockSymbol, {
-        timeOut: 3000
-      });
+      this.callback(stockSymbol);
     } else {    // if not do not display alert
 
       this.toastr.error('To view additional information', 'Please login', {

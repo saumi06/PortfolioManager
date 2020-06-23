@@ -1,147 +1,81 @@
 import { Component, OnInit } from '@angular/core';
 import {summaryStockData, ResponseResult, ResponseError, basicStockData} from '../../services/interfaces'
 import {ApiServiceService} from '../../services/api-service.service';
+import { HelperServiceService } from '../../services/helper-service.service';
 import { AuthService } from '../../services/auth.service';
 import { Chart } from 'angular-highcharts';
 
 @Component({
-  selector: 'app-main-page',
-  templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.css']
+	selector: 'app-main-page',
+	templateUrl: './main-page.component.html',
+	styleUrls: ['./main-page.component.css']
 })
 
 
 export class MainPageComponent implements OnInit {
 
-  interestedStocks: Array<basicStockData>;
-  // store the data of the stock that is clicked on or searched
-  stockFocusData: ResponseResult;
+	interestedStocks: Array<basicStockData>;
+	// store the data of the stock that is clicked on or searched
+	stockFocusData: ResponseResult;
 
-  stockSymbol: string = '';
+	stockSymbol: string = '';
 
-	expectedEarnings: any;
+	expectedEarnings: Chart;
 
-  constructor(private apiService: ApiServiceService, private authService: AuthService) {
-    this.interestedStocks = []
-	this.stockSymbol = '';
-	// this.expectedEarnings = new Chart({
-	// 	title: {
-	// 		text: 'Earning Forcast '
-	// 	},
-	
-	// 	yAxis: {
-	// 		title: {
-	// 			text: 'Price'
-	// 		}
-	// 	},
-	
-	// 	// xAxis: {
-	// 	// 	accessibility: {
-	// 	// 		rangeDescription: 'Range: 2010 to 2017'
-	// 	// 	}
-	// 	// },
-	
-	// 	// legend: {
-	// 	// 	layout: 'vertical',
-	// 	// 	align: 'right',
-	// 	// 	verticalAlign: 'middle'
-	// 	// },
-	
-	// 	// plotOptions: {
-	// 	// 	series: {
-	// 	// 		label: {
-	// 	// 			connectorAllowed: false
-	// 	// 		},
-	// 	// 		pointStart: 2010
-	// 	// 	}
-	// 	// },
-	
-	// 	series: [
-	// 		{ data: [1, 2, 3]},
-	// 		{ data: [4, 5, 6] },
-	// 		{ data: [1, 2, 5]}
+	quaterlyReport: Chart;
 
-		
-	// 	]	
-	
-	// 	// responsive: {
-	// 	// 	rules: [{
-	// 	// 		condition: {
-	// 	// 			maxWidth: 500
-	// 	// 		},
-	// 	// 		chartOptions: {
-	// 	// 			legend: {
-	// 	// 				layout: 'horizontal',
-	// 	// 				align: 'center',
-	// 	// 				verticalAlign: 'bottom'
-	// 	// 			}
-	// 	// 		}
-	// 	// 	}]
-	// 	// }
-	
-	//   });
-   }
+	constructor(private apiService: ApiServiceService, private authService: AuthService, private helper: HelperServiceService) {
+		this.interestedStocks = []
+		this.stockSymbol = '';
+	 }
 
-  ngOnInit(): void {
-    // check for data in local storage 
-  }
+	ngOnInit(): void {
+		// check for data in local storage 
+	}
 
 
-  /** 
-   * Convert the result to our stock data interface 
-   */
-  convertStockSummary<T>(stock: T): summaryStockData{
-	  return {
-		  keyStats: {
-			  weekChange52: stock["defaultKeyStatistics"]["52WeekChange"]["fmt"],
-			  beta: stock["defaultKeyStatistics"]["beta"]["fmt"],
-			  quaterlyGrowth: stock["defaultKeyStatistics"]["earningsQuarterlyGrowth"]["fmt"],
-			  eps: stock["defaultKeyStatistics"]["forwardEps"]["fmt"],
-			  pe: stock["defaultKeyStatistics"]["forwardPE"]["fmt"]
-		  	},
-			earningsChart: {},
-		  financialData: {
-			  currentPrice: stock["financialData"]["currentPrice"]["fmt"],
-			  financialCurrency: stock["financialData"]["financialCurrency"],
-			  currentRatio: stock["financialData"]["currentRatio"]["fmt"],
-			  earningsGrowth: stock["financialData"]["earningsGrowth"]["fmt"],
-			  roa: stock["financialData"]["returnOnAssets"]["fmt"],
-			  roe: stock["financialData"]["returnOnEquity"]["fmt"]
-		  	},
-		  meanDataChart: {
-			  targetHigh: stock["financialData"]["targetHighPrice"]["raw"] ,
-			  targetLow: stock["financialData"]["targetLowPrice"]["raw"],
-			  targetMedian:  stock["financialData"]["targetMedianPrice"]["raw"]
-			}
-	  }
-
-  }
-
-  /** 
-   * Get stock infromation if user enters information and presses enter 
-   */
-  public getStockData(e: any): void{
-    if (e.key != "Enter") return
-
-    // enter is presses make request
-    console.log("Making request")
-    this.apiService.getStockData(this.stockSymbol).subscribe(
-      res => {
-        if (res == null) return;
-
-		this.stockFocusData = {
-			code: 200,
-			message: "Success",
-			response: this.convertStockSummary(res)
+	/** 
+	 * Convert the result to our stock data interface 
+	 */
+	convertStockSummary<T>(stock: T): summaryStockData{
+		return {
+			keyStats: this.helper.mapDefaultKeyStatistics(stock),
+			earningsChart: this.helper.mapEarningDataChart(stock),
+			financialData: this.helper.mapFinancialData(stock),
+			meanDataChart: this.helper.mapMeanDataChart(stock)
 		}
 
-		// call to plot charts
-		this.plotCharts(<summaryStockData>this.stockFocusData.response)
-        
-      }
-    )
+	}
 
-  }
+	/** 
+	 * Get stock infromation if user enters information and presses enter 
+	 */
+	public getStockData(e: any): void{
+		if (e.key != "Enter") return
+
+		// enter is presses make request
+		console.log("Making request")
+		this.apiService.getStockData(this.stockSymbol).subscribe(
+			res => {
+				if (res == null) return;
+				
+
+				console.log(res)
+
+				this.stockFocusData = {
+					code: 200,
+					message: "Success",
+					response: this.convertStockSummary(res)
+				}
+
+				console.log(this.stockFocusData);
+
+				// call to plot charts
+				this.plotCharts(<summaryStockData>this.stockFocusData.response)
+				
+		})
+
+	}
 
 	
 
@@ -157,26 +91,69 @@ export class MainPageComponent implements OnInit {
 				type: "line"
 			},
 			title: {
-			  text: 'Expected Earning'
+				text: 'Expected Earning'
 			},
 			credits: {
-			  enabled: false
+				enabled: false
 			},
 			series: [
-			  {
+				{
 				name: 'Target High',
 				data: [Number(data.financialData.currentPrice), data.meanDataChart.targetHigh]
 				},
-			  {
+				{
 				name: 'Target Median',
 				data: [Number(data.financialData.currentPrice), data.meanDataChart.targetMedian]
 				},
-			  {
+				{
 				name: 'Target Low',
 				data: [ Number(data.financialData.currentPrice), data.meanDataChart.targetLow]
 				},
 			]
-		  });
+		});
+
+		let earnings: Array<{actual: String, date: number, expected: String}> = data.earningsChart
+		let actual: Array<number> = []
+		let expected: Array<number> = []
+
+		for (let quater of earnings) {
+			actual.push(Number(quater.actual))
+			expected.push(Number(quater.expected))
+		}
+
+		this.quaterlyReport = new Chart({
+			chart: {
+				type: 'column'
+			},
+			title: {
+				text: 'Quaterly Earnings'
+			},
+			xAxis: {
+				categories: [
+					"Q1",
+					"Q2",
+					"Q3",
+					"Q4"
+				],
+				crosshair: true
+			},
+			// plotOptions: {
+			// 	column: {
+			// 		stacking: 'normal',
+			// 		dataLabels: {
+			// 			enabled: true
+			// 		}
+			// 	}
+			// },
+			series: [{
+				name: "actual",
+				data: actual 			
+			},
+			{
+				name: "expected",
+				data: expected
+			}]
+		}) 
 		
 
 	}

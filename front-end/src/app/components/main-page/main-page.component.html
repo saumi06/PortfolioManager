@@ -14,7 +14,7 @@
 
             <div>
                 <h4>Market Summary</h4>
-                <app-list-stocks></app-list-stocks>
+                <app-list-stocks [callback]="getStockData"></app-list-stocks>
             </div>
 
         </div>
@@ -51,6 +51,8 @@
         </div>
         <div class="row">
             <div class="col" [chart]="expectedEarnings">
+            </div>
+            <div class="col" [chart]="quaterlyReport">
             </div>
             <div class="col"></div>
         </div>
