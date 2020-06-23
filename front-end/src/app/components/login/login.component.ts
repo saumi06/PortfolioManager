@@ -33,7 +33,6 @@ public users: AngularFireList<USERS[]>;
     
   }
   logOut() {
-    console.log("LOGOUT!!");
     this.auth.logout();
   }
 }

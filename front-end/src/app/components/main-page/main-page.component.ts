@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {StockData, ResponseResult, ResponseError} from '../../services/interfaces'
 import {ApiServiceService} from '../../services/api-service.service';
-
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
@@ -15,7 +15,7 @@ export class MainPageComponent implements OnInit {
 
   stockSymbol: string = '';
 
-  constructor(private apiService: ApiServiceService) {
+  constructor(private apiService: ApiServiceService, private authService: AuthService) {
     this.interestedStocks = []
     this.stockSymbol = '';
    }
@@ -46,8 +46,6 @@ export class MainPageComponent implements OnInit {
         
       }
     )
-
-
 
   }
 

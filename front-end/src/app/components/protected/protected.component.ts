@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-protected',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./protected.component.css']
 })
 export class ProtectedComponent implements OnInit {
+  constructor(private authService:AuthService) {
 
-  constructor() { }
+   }
 
   ngOnInit(): void {
+  }
+  
+  logOut() {
+      this.authService.logout();
   }
 
 }

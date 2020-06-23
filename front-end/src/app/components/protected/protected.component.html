@@ -9,12 +9,10 @@
             aria-controls="pills-profile" aria-selected="false">Profile</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="logOut()" role="tab"
+        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" (click)="logOut()" role="tab"
             aria-controls="pills-profile" aria-selected="false">LogOut</a>
     </li>
 </ul>
-
-    <p>List Stocks With details</p>
     <!--ADD LIST STOCK API IN THIS COMPONENT AFTER LOGIN-->
     <app-main-page></app-main-page>
 </div>

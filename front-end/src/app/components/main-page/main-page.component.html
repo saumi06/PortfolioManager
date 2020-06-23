@@ -1,22 +1,20 @@
 <div class="container">
-    <div class="row">
+    <!-- Search form -->
+    <div class="md-form active-pink mt-0 sticky-top">
+        <input class="form-control" type="text" placeholder="Search Stock ( symbol )" aria-label="Search"
+            [(ngModel)]="stockSymbol" (keyup)="getStockData($event)" required>
+    </div>
 
-        <!-- search and list component  -->
+    <div class="row container-fluid">
+        <!-- list component  -->
         <div class="col list-component-main-page">
-            <!-- Search form -->
-            <div class="md-form active-pink mt-0 sticky-top">
-                <input class="form-control" type="text" placeholder="Search Stock ( symbol )" aria-label="Search" [(ngModel)]="stockSymbol" (keyup)="getStockData($event)"  required>
-            </div>
-
             <div *ngIf="interestedStocks.length > 0">
                 <h2> Flagged </h2>
             </div>
 
-
-            <!-- <div>
-                <h3>Summary</h3>
+            <div>
                 <app-list-stocks></app-list-stocks>
-            </div> -->
+            </div>
 
         </div>
 
