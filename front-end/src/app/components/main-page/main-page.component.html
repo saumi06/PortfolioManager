@@ -30,7 +30,7 @@
 
             <div>
                 <h4>Market Summary</h4>
-                <app-list-stocks [callback]="getStockData"></app-list-stocks>
+                <app-list-stocks (getStockData)="getChildStockData($event)"></app-list-stocks>
             </div>
 
         </div>
@@ -42,7 +42,21 @@
 
   
     <div class="stock-summary" *ngIf="stockFocusData">
-        <h3> Stock {{stockSymbol}} <span [style.color]="'#00FF00'">{{stockFocusData.response.financialData.currentPrice}} {{stockFocusData.response.financialData.financialCurrency}}</span></h3>
+        <div class="row summary-header" >
+            <div class="col">
+                <h3> Stock {{stockSymbol}} <span [style.color]="'#00FF00'">{{stockFocusData.response.financialData.currentPrice}} {{stockFocusData.response.financialData.financialCurrency}}</span></h3>
+            </div>
+            <!-- /.col -->
+            <div class="col">
+                <button class="btn btn-primary summary-button" (click)="addFlaggedStock(stockSymbol)">
+                    Flag Stock
+                    <!-- <span class="glyphicon glyphicon-flag" aria-hidden="true"></span> -->
+                </button> <!-- /.btn -->
+            </div>
+            <!-- /.col -->
+
+        </div>
+        <!-- /.row -->
         <div class="row">
 
             <div class="col">
@@ -73,5 +87,7 @@
             <div class="col"></div>
         </div>
     </div>
+
+
 
 </div>

@@ -30,9 +30,12 @@
         <td>{{stock.marketState}}</td>
         <td>{{stock.quoteType}}</td>
         <td>{{stock.price}}</td>
-        <td><span
-            [style.color]="getStockChangeColor(stock.changePercentRaw)">{{stock.changePrice}} |
-            {{stock.changePercent}}</span></td>
+        <td 
+          [innerHTML] = "stock.changePercent | colorGenerator: stock.changePrice "
+        >
+          <!-- <span> -->
+          <!-- </span>  -->
+        </td>
       </tr>
     </tbody>
   </table>

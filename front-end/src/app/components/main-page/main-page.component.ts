@@ -18,11 +18,15 @@ export class MainPageComponent implements OnInit {
 	// store the data of the stock that is clicked on or searched
 	stockFocusData: ResponseResult;
 
-	stockSymbol: string = '';
+	stockSymbol: string;
 
 	expectedEarnings: Chart;
 
 	quaterlyReport: Chart;
+
+	
+	
+	
 
 	constructor(private apiService: ApiServiceService, private authService: AuthService, private helper: HelperServiceService) {
 		this.interestedStocks = []
@@ -30,12 +34,12 @@ export class MainPageComponent implements OnInit {
 	 }
 
 	ngOnInit(): void {
-		// check for data in local storage 
+		// check for data in local storage
 	}
 
 
-	/** 
-	 * Convert the result to our stock data interface 
+	/**
+	 * Convert the result to our stock data interface
 	 */
 	convertStockSummary<T>(stock: T): summaryStockData{
 		return {
@@ -47,18 +51,28 @@ export class MainPageComponent implements OnInit {
 
 	}
 
-	/** 
-	 * Get stock infromation if user enters information and presses enter 
+	/**
+	 * This function handles the event of the child component to get additional
+	 * stock data
+	 */
+	public getChildStockData(stockSymbol: string) {
+		this.stockSymbol = stockSymbol
+		this.getStockData({key: "Enter"})
+	}
+
+
+	/**
+	 * Get stock infromation if user enters information and presses enter
 	 */
 	public getStockData(e: any): void{
-		if (e.key != "Enter") return
+		if (e.key !== 'Enter') { return; }
 
 		// enter is presses make request
 		console.log("Making request")
 		this.apiService.getStockData(this.stockSymbol).subscribe(
 			res => {
 				if (res == null) return;
-				
+
 
 				console.log(res)
 
@@ -72,14 +86,14 @@ export class MainPageComponent implements OnInit {
 
 				// call to plot charts
 				this.plotCharts(<summaryStockData>this.stockFocusData.response)
-				
+
 		})
 
 	}
 
-	
 
-	/** 
+
+	/**
 	 * THis method is used to plot chart
 	 */
 	plotCharts(data: summaryStockData): void{
@@ -98,14 +112,17 @@ export class MainPageComponent implements OnInit {
 			},
 			series: [
 				{
+				type: 'line',
 				name: 'Target High',
 				data: [Number(data.financialData.currentPrice), data.meanDataChart.targetHigh]
 				},
 				{
+				type: 'line',
 				name: 'Target Median',
 				data: [Number(data.financialData.currentPrice), data.meanDataChart.targetMedian]
 				},
 				{
+				type: 'line',
 				name: 'Target Low',
 				data: [ Number(data.financialData.currentPrice), data.meanDataChart.targetLow]
 				},
@@ -137,31 +154,23 @@ export class MainPageComponent implements OnInit {
 				],
 				crosshair: true
 			},
-			// plotOptions: {
-			// 	column: {
-			// 		stacking: 'normal',
-			// 		dataLabels: {
-			// 			enabled: true
-			// 		}
-			// 	}
-			// },
 			series: [{
-				name: "actual",
-				data: actual 			
+				type: 'column',
+				name: 'actual',
+				data: actual
 			},
 			{
-				name: "expected",
+				type: 'column',
+				name: 'expected',
 				data: expected
 			}]
-		}) 
-		
+		})
+
 
 	}
 
-	
-	
 
-
-
-
+	addFlaggedStock(stockSymbol: string): void {
+		this.apiService.updateLocalStorage(stockSymbol);
+	}
 }
