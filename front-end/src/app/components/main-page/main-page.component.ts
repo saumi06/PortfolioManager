@@ -14,7 +14,7 @@ import { Chart } from 'angular-highcharts';
 
 export class MainPageComponent implements OnInit {
 
-	interestedStocks: Array<basicStockData>;
+	interestedStocks: ResponseResult;
 	// store the data of the stock that is clicked on or searched
 	stockFocusData: ResponseResult;
 
@@ -24,17 +24,44 @@ export class MainPageComponent implements OnInit {
 
 	quaterlyReport: Chart;
 
+	loading: boolean;
+
+	loadingSrc: string;
 	
 	
 	
 
 	constructor(private apiService: ApiServiceService, private authService: AuthService, private helper: HelperServiceService) {
-		this.interestedStocks = []
 		this.stockSymbol = '';
+		this.loading = false;
+		this.loadingSrc ='assets/loading.gif';
 	 }
 
 	ngOnInit(): void {
 		// check for data in local storage
+		this.getPortfolioData();
+	}
+
+
+	/** 
+	 * Get the flagged stocks data 
+	 */
+	getPortfolioData(): void{
+		this.loading = true;
+		this.apiService.getPortfolioData().subscribe((res: Array<string>) => {
+			// make request to get data about flagged stocks
+			this.apiService.getPortfolioData(res.join(',')).subscribe(data => {
+				const property = "quoteResponse";
+				if (data != null && property in data && data[property]["errors"] == null){
+					this.interestedStocks = this.helper.mapBasicStockData(data[property]);
+					console.log(this.interestedStocks);
+				} else {
+					console.log('Api request to get flagged data failed')
+				}
+				this.loading = !this.loading;
+			});
+
+		});
 	}
 
 
@@ -43,6 +70,7 @@ export class MainPageComponent implements OnInit {
 	 */
 	convertStockSummary<T>(stock: T): summaryStockData{
 		return {
+			name: ("price" in stock && stock["price"] != undefined) ? stock["price"]["shortName"]: "N/A",
 			keyStats: this.helper.mapDefaultKeyStatistics(stock),
 			earningsChart: this.helper.mapEarningDataChart(stock),
 			financialData: this.helper.mapFinancialData(stock),
@@ -56,8 +84,8 @@ export class MainPageComponent implements OnInit {
 	 * stock data
 	 */
 	public getChildStockData(stockSymbol: string) {
-		this.stockSymbol = stockSymbol
-		this.getStockData({key: "Enter"})
+		this.stockSymbol = stockSymbol;
+		this.getStockData({ key: 'Enter' });
 	}
 
 
@@ -65,6 +93,7 @@ export class MainPageComponent implements OnInit {
 	 * Get stock infromation if user enters information and presses enter
 	 */
 	public getStockData(e: any): void{
+		this.loading = !this.loading
 		if (e.key !== 'Enter') { return; }
 
 		// enter is presses make request
@@ -74,11 +103,11 @@ export class MainPageComponent implements OnInit {
 				if (res == null) return;
 
 
-				console.log(res)
+				console.log(res);
 
 				this.stockFocusData = {
 					code: 200,
-					message: "Success",
+					message: 'Success',
 					response: this.convertStockSummary(res)
 				}
 
@@ -86,6 +115,8 @@ export class MainPageComponent implements OnInit {
 
 				// call to plot charts
 				this.plotCharts(<summaryStockData>this.stockFocusData.response)
+
+				this.loading = !this.loading;
 
 		})
 
@@ -143,7 +174,7 @@ export class MainPageComponent implements OnInit {
 				type: 'column'
 			},
 			title: {
-				text: 'Quaterly Earnings'
+				text: 'Last 4 quaters Earnings'
 			},
 			xAxis: {
 				categories: [

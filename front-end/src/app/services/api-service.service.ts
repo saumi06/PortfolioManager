@@ -15,7 +15,7 @@ export class ApiServiceService {
 
 	constructor(private http: HttpClient, protected localStorage: LocalStorage) { }
 
-	makeRequest(url: string): Observable<Object> {
+	makeRequest(url: string): Observable<object> {
 		return this.http.get(
 			url,
 			{
@@ -32,11 +32,26 @@ export class ApiServiceService {
 	 * Get data of all the stocks 
 	 */
 	getStocksData(): Observable<Object> {
-		// return this.makeRequest('https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-summary?region=US&lang=en')
-		return this.makeRequest('assets/data.json');
+		return this.makeRequest('https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-summary?region=US&lang=en')
+		// return this.makeRequest('assets/data.json');
 	}
 
-	getPortfolioData(): any {
+
+	/** 
+	 * Read stocks from local storage  
+	 */
+	getPortfolioData(): Observable<object>;
+	getPortfolioData(symbol: string): Observable<object>;
+	getPortfolioData(symbols?: string): Observable<object>{
+		if (symbols == null || symbols == undefined) {
+			return this.localStorage.getItem(this.LOCALFLAGGED, {
+				type: 'array',
+				items: { type: 'string' },
+			});
+		} else {
+			return this.makeRequest(`https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-quotes?region=US&lang=en&symbols=${symbols}`);
+			// return this.makeRequest('assets/flagged.json');
+		}
 
 	}
 
@@ -45,9 +60,9 @@ export class ApiServiceService {
 	/** 
 	 * THis method gets a single stock data 
 	 */
-	getStockData(symbol: string): Observable<Object> {
-		// return this.makeRequest(`https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?region=US&lang=en&symbol=${symbol}`)
-		return this.makeRequest('assets/stock.json');
+	getStockData(symbol: string): Observable<object> {
+		return this.makeRequest(`https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?region=US&lang=en&symbol=${symbol}`)
+		// return this.makeRequest('assets/stock.json');
 	}
 
 
@@ -58,9 +73,8 @@ export class ApiServiceService {
 	updateLocalStorage(stockSymbol: string): void {
 		// get from local storage
 		this.localStorage.getItem('FlaggedStocks').subscribe((flaggedStocks: Array<string>) => {
-			if (flaggedStocks != null) {
+			if (flaggedStocks != null && !(flaggedStocks.includes(stockSymbol))) {
 				flaggedStocks.push(stockSymbol);
-				console.log(flaggedStocks);
 			} else {
 				flaggedStocks = [stockSymbol];
 			}
@@ -73,6 +87,8 @@ export class ApiServiceService {
 			console.log(error);
 		});
 	}
+
+
 
 
 

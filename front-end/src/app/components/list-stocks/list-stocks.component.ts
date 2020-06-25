@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ResponseError, ResponseResult, MarketChangeFormat, basicStockData } from '../../services/interfaces';
 
 import { ApiServiceService } from '../../services/api-service.service';
-
+// import { LocalStorage } from '@ngx-pwa/local-storage'
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../services/auth.service';
 
@@ -57,22 +57,16 @@ export class ListStocksComponent implements OnInit {
 
 	ngOnInit() {
 		// this.stocks = JSON.parse(localStorage.getItem("marketSummary"))
-		if (this.stocks == null) {
+		if (this.stocksInformation == null) {
 			// if no input is provided
 			this.getStocks();
 		} else {
-			// this.stocks = this.stocksInformation;
-			console.log('Getting information from local storage')
-			console.log(this.stocks)
+			// set stocks to our input 
+			this.stocks = this.stocksInformation;
+
 		}
 	}
 
-	/**
-	 * Returns the color of the stock change green if positive else red
-	//  */
-	// getStockChangeColor<T extends MarketChangeFormat>(change: T): string {
-	// 	return (change.raw < 0) ? '#ff0000' : '#7CFC00';
-	// }
 
 
 	/**

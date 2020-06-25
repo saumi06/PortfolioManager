@@ -24,14 +24,11 @@
     <div class="row container-fluid">
         <!-- list component  -->
         <div class="col list-component-main-page">
-            <div *ngIf="interestedStocks.length > 0">
+            <div *ngIf="interestedStocks">
                 <h2> Flagged </h2>
+                <app-list-stocks (getStockData)="getChildStockData($event)" [stocksInformation]="interestedStocks"></app-list-stocks>
             </div>
 
-            <div>
-                <h4>Market Summary</h4>
-                <app-list-stocks (getStockData)="getChildStockData($event)"></app-list-stocks>
-            </div>
 
         </div>
 
@@ -41,10 +38,13 @@
     </div>
 
   
-    <div class="stock-summary" *ngIf="stockFocusData">
+   <div class="row text-center">
+    <img [src]='loadingSrc' *ngIf="loading" class="rounded">
+   </div> 
+    <div class="stock-summary" *ngIf="stockFocusData && !loading">
         <div class="row summary-header" >
             <div class="col">
-                <h3> Stock {{stockSymbol}} <span [style.color]="'#00FF00'">{{stockFocusData.response.financialData.currentPrice}} {{stockFocusData.response.financialData.financialCurrency}}</span></h3>
+                <h3> {{stockFocusData.response.name}} <span [style.color]="'#00FF00'">{{stockFocusData.response.financialData.currentPrice}} {{stockFocusData.response.financialData.financialCurrency}}</span></h3>
             </div>
             <!-- /.col -->
             <div class="col">
