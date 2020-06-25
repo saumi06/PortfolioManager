@@ -19,9 +19,11 @@ import { environment } from 'src/environments/environment';
 
 import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './services/auth.service';
+
 import { AuthGuardService } from './services/auth-guard.service';
 import { MainPageComponent } from './components/main-page/main-page.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ChartModule } from 'angular-highcharts';
+import { ColorGeneratorPipe } from './pipes/color-generator.pipe';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     LoginComponent,
     ListStocksComponent,
     MainPageComponent,
-    ProfileComponent
+    ColorGeneratorPipe
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     AngularFireDatabaseModule,
     HttpClientModule,
     FormsModule,
+    ChartModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot() // ToastrModule added
   ],
