@@ -49,7 +49,7 @@ export class MainPageComponent implements OnInit {
 	getPortfolioData(): void {
 		this.apiService.getPortfolioData().subscribe((res: Array<string>) => {
 			if (res == null) {
-				return;
+				return null;
 			}
 			this.loading = true;
 			// make request to get data about flagged stocks
