@@ -46,9 +46,12 @@ export class MainPageComponent implements OnInit {
 	/** 
 	 * Get the flagged stocks data 
 	 */
-	getPortfolioData(): void{
-		this.loading = true;
+	getPortfolioData(): void {
 		this.apiService.getPortfolioData().subscribe((res: Array<string>) => {
+			if (res == null) {
+				return;
+			}
+			this.loading = true;
 			// make request to get data about flagged stocks
 			this.apiService.getPortfolioData(res.join(',')).subscribe(data => {
 				const property = "quoteResponse";
@@ -92,14 +95,15 @@ export class MainPageComponent implements OnInit {
 	/**
 	 * Get stock infromation if user enters information and presses enter
 	 */
-	public getStockData(e: any): void{
-		this.loading = !this.loading
+	public getStockData(e: any): void {
 		if (e.key !== 'Enter') { return; }
 
+		this.loading = true;
 		// enter is presses make request
 		console.log("Making request")
 		this.apiService.getStockData(this.stockSymbol).subscribe(
 			res => {
+				this.loading = !this.loading;
 				if (res == null) return;
 
 
@@ -116,9 +120,8 @@ export class MainPageComponent implements OnInit {
 				// call to plot charts
 				this.plotCharts(<summaryStockData>this.stockFocusData.response)
 
-				this.loading = !this.loading;
 
-		})
+		}, () => {})
 
 	}
 
