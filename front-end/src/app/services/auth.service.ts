@@ -39,6 +39,8 @@ export class AuthService {
   }
   logout() {
     this.afAuth.signOut().then(() => { console.log('logged out') });
+    this.router.navigate(['sign-in']);
+    localStorage.clear();
  
     this.toastr.success('Successfully Logged Out', 'Congratulations', {
       timeOut: 3000

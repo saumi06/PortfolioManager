@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import { LocalStorage } from '@ngx-pwa/local-storage';
 import { ThrowStmt } from '@angular/compiler';
 
@@ -42,7 +42,7 @@ export class ApiServiceService {
 	 */
 	getPortfolioData(): Observable<object>;
 	getPortfolioData(symbol: string): Observable<object>;
-	getPortfolioData(symbols?: string): Observable<object>{
+	getPortfolioData(symbols?: string): Observable<object> {
 		if (symbols == null || symbols == undefined) {
 			return this.localStorage.getItem(this.LOCALFLAGGED, {
 				type: 'array',
@@ -80,6 +80,39 @@ export class ApiServiceService {
 			}
 
 			this.localStorage.setItem(this.LOCALFLAGGED, flaggedStocks).subscribe(() => { console.log('LocalStorage updated'); }, () => { });
+			window.location.reload();
+
+		}, (error) => {
+			console.log('error updating local storage')
+			console.log(error);
+		});
+	}
+
+	removeFromLocalStorage(stockSymbol: string): void {
+		
+		this.localStorage.getItem('FlaggedStocks').subscribe((flaggedStocks: Array<string>) => {
+			if (flaggedStocks != null && !(flaggedStocks.includes(stockSymbol))) {
+				flaggedStocks.push(stockSymbol);
+			} else {
+				flaggedStocks = [stockSymbol];
+			}
+
+			console.log("local flagged", flaggedStocks);
+			let i;
+			i = localStorage.length;
+			console.log(i);
+			
+				let key;
+
+				key = localStorage.key(i);
+				
+				if (this.localStorage.getItem(key).toString() === stockSymbol) {
+					console.log("Condition true");
+					this.localStorage.removeItem(key);
+				}
+				window.location.reload();
+			
+			
 
 
 		}, (error) => {

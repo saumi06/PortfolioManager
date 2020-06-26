@@ -4,6 +4,8 @@ import {ApiServiceService} from '../../services/api-service.service';
 import { HelperServiceService } from '../../services/helper-service.service';
 import { AuthService } from '../../services/auth.service';
 import { Chart } from 'angular-highcharts';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
 	selector: 'app-main-page',
@@ -27,15 +29,17 @@ export class MainPageComponent implements OnInit {
 	loading: boolean;
 
 	loadingSrc: string;
-	
+	user;
 	
 	
 
-	constructor(private apiService: ApiServiceService, private authService: AuthService, private helper: HelperServiceService) {
+	constructor(private apiService: ApiServiceService, private authService: AuthService, private helper: HelperServiceService, private toastr: ToastrService) {
 		this.stockSymbol = '';
 		this.loading = false;
 		this.loadingSrc ='assets/loading.gif';
-	 }
+		this.user = this.authService.authInfo;
+	}
+
 
 	ngOnInit(): void {
 		// check for data in local storage
@@ -43,6 +47,9 @@ export class MainPageComponent implements OnInit {
 	}
 
 
+	logOut(){
+		this.authService.logout();
+	}
 	/** 
 	 * Get the flagged stocks data 
 	 */
@@ -206,5 +213,12 @@ export class MainPageComponent implements OnInit {
 
 	addFlaggedStock(stockSymbol: string): void {
 		this.apiService.updateLocalStorage(stockSymbol);
+		this.toastr.success('The selected Stock has been removed', 'Stock Removed', {
+			timeOut: 3000
+		});
+	}
+	removeFlaggedStock(stockSymbol: string):void{
+		console.log("Remove this stock from flagged");
+		this.apiService.removeFromLocalStorage(stockSymbol);
 	}
 }

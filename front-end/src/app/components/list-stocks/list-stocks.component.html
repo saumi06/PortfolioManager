@@ -1,18 +1,5 @@
 <div class="container-fluid">
-  <ul *ngIf="!(user | async)?.uid" class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home"
-        aria-selected="true">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" routerLink="/sign-in" role="tab"
-        aria-controls="pills-profile" aria-selected="false">Login</a>
-    </li>
-  </ul>
-
-  <h3 class="display-4" *ngIf="!(user | async)?.uid">Market Summary</h3>
-
-
+  
   <table *ngIf="stocks && stocks.code == 200" ngClass="table table-dark table-hover">
     <thead>
       <tr>
@@ -29,10 +16,8 @@
         <td>{{stock.name}} <span [style.color]="'#00FF00'">( {{ stock.symbol }} )</span></td>
         <td>{{stock.marketState}}</td>
         <td>{{stock.quoteType}}</td>
-        <td>{{stock.price}}</td>
-        <td 
-          [innerHTML] = "stock.changePercent | colorGenerator: stock.changePrice "
-        >
+        <td>{{stock.price}} </td>
+        <td [innerHTML]="stock.changePercent | colorGenerator: stock.changePrice ">
           <!-- <span> -->
           <!-- </span>  -->
         </td>
