@@ -1,0 +1,4 @@
+.nav-item a:hover{
+    background-color: silver;
+    cursor: pointer;
+}

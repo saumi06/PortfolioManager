@@ -1,0 +1,27 @@
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="display-4">General news</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let new of news">
+                <td>
+                    <tr>
+                        <ul>
+
+                            <li>
+                                <a href={{new.link}}>{{new.title}}</a>
+                            </li>
+                            <p> {{new.summary}}</p>
+                        </ul>
+                    </tr>
+
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

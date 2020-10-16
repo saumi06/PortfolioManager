@@ -1,0 +1,14 @@
+.profile-image{
+    max-width: 120px;;
+}
+.nav-item a:hover{
+    background-color: silver;
+    cursor: pointer;
+}
+
+.someElement:active{
+    transition: all 1s ease-out;
+    /* -webkit-animation: fadeOut 500ms;
+    -moz-animation: fadeOut 500ms;
+    animation: fadeOut 500ms; */
+}

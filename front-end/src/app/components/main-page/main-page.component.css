@@ -1,0 +1,30 @@
+.search-box{
+    padding: 10px;
+    border:5px solid white;
+    margin: 0 auto;
+}
+
+
+.stock-data{
+    color: #00FF00;
+}
+
+
+.summary-header{
+    padding: 20px;
+}
+
+
+.summary-button{
+    padding: 10px;
+    margin: 10px;
+}
+
+.nav-item a:hover{
+    background-color: silver;
+    cursor: pointer;
+}
+input .search-bar{
+    padding:1vh;
+  
+}
