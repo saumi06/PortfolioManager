@@ -26,6 +26,7 @@ import { ChartModule } from 'angular-highcharts';
 import { ColorGeneratorPipe } from './pipes/color-generator.pipe';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NewsComponent } from './components/news/news.component';
+import { HelpComponent } from './help/help.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NewsComponent } from './components/news/news.component';
     MainPageComponent,
     ColorGeneratorPipe,
     ProfileComponent,
-    NewsComponent
+    NewsComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,

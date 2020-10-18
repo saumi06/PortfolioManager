@@ -16,7 +16,8 @@ export class ApiServiceService {
 
 	constructor(private http: HttpClient, protected localStorage: LocalStorage) { }
 	getnews(): Observable<Object> {
-    return this.makeRequest('https://apidojo-yahoo-finance-v1.p.rapidapi.com/news/list?category=generalnews&region=US');
+		return;
+    //return this.makeRequest('https://apidojo-yahoo-finance-v1.p.rapidapi.com/news/list?category=generalnews&region=US');
    
       
   
@@ -40,7 +41,8 @@ export class ApiServiceService {
 	 * Get data of all the stocks 
 	 */
 	getStocksData(): Observable<Object> {
-		return this.makeRequest('https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-summary?region=US&lang=en')
+	return;
+		//	return this.makeRequest('https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-summary?region=US&lang=en')
 		// return this.makeRequest('assets/data.json');
 	}
 
@@ -57,7 +59,8 @@ export class ApiServiceService {
 				items: { type: 'string' },
 			});
 		} else {
-			return this.makeRequest(`https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-quotes?region=US&lang=en&symbols=${symbols}`);
+			return;
+			//return this.makeRequest(`https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-quotes?region=US&lang=en&symbols=${symbols}`);
 			// return this.makeRequest('assets/flagged.json');
 		}
 
@@ -69,7 +72,9 @@ export class ApiServiceService {
 	 * THis method gets a single stock data 
 	 */
 	getStockData(symbol: string): Observable<object> {
-		return this.makeRequest(`https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?region=US&lang=en&symbol=${symbol}`)
+		return;
+		
+		//return this.makeRequest(`https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?region=US&lang=en&symbol=${symbol}`)
 		// return this.makeRequest('assets/stock.json');
 	}
 

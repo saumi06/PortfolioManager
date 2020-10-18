@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {summaryStockData, ResponseResult, ResponseError, basicStockData} from '../../services/interfaces'
-import {ApiServiceService} from '../../services/api-service.service';
+import { summaryStockData, ResponseResult, ResponseError, basicStockData } from '../../services/interfaces'
+import { ApiServiceService } from '../../services/api-service.service';
 import { HelperServiceService } from '../../services/helper-service.service';
 import { AuthService } from '../../services/auth.service';
 import { Chart } from 'angular-highcharts';
-import {ToastrService} from 'ngx-toastr';
+import * as $ from 'jquery';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
 	selector: 'app-main-page',
@@ -28,26 +29,28 @@ export class MainPageComponent implements OnInit {
 	loading: boolean;
 
 	loadingSrc: string;
-	
-	
+
+
 	user;
 	uid;
 
 	constructor(private apiService: ApiServiceService, private authService: AuthService, private helper: HelperServiceService) {
 		this.stockSymbol = '';
 		this.loading = false;
-		this.loadingSrc ='assets/loading.gif';
+		this.loadingSrc = 'assets/loading.gif';
 		this.user = this.authService.authInfo;
-	 }
+	}
 
 	ngOnInit(): void {
 		// check for data in local storage
+	
 		this.getPortfolioData();
 	}
-
 	logOut() {
-    this.authService.logout();
-  }
+		this.authService.logout();
+
+
+	}
 	/** 
 	 * Get the flagged stocks data 
 	 */
@@ -60,7 +63,7 @@ export class MainPageComponent implements OnInit {
 			// make request to get data about flagged stocks
 			this.apiService.getPortfolioData(res.join(',')).subscribe(data => {
 				const property = "quoteResponse";
-				if (data != null && property in data && data[property]["errors"] == null){
+				if (data != null && property in data && data[property]["errors"] == null) {
 					this.interestedStocks = this.helper.mapBasicStockData(data[property]);
 					console.log("Interested Stocks");
 					console.log(this.interestedStocks);
@@ -77,9 +80,9 @@ export class MainPageComponent implements OnInit {
 	/**
 	 * Convert the result to our stock data interface
 	 */
-	convertStockSummary<T>(stock: T): summaryStockData{
+	convertStockSummary<T>(stock: T): summaryStockData {
 		return {
-			name: ("price" in stock && stock["price"] != undefined) ? stock["price"]["shortName"]: "N/A",
+			name: ("price" in stock && stock["price"] != undefined) ? stock["price"]["shortName"] : "N/A",
 			keyStats: this.helper.mapDefaultKeyStatistics(stock),
 			earningsChart: this.helper.mapEarningDataChart(stock),
 			financialData: this.helper.mapFinancialData(stock),
@@ -127,7 +130,7 @@ export class MainPageComponent implements OnInit {
 				this.plotCharts(this.stockFocusData.response as summaryStockData)
 
 
-		}, () => {})
+			}, () => { })
 
 	}
 
@@ -136,7 +139,7 @@ export class MainPageComponent implements OnInit {
 	/**
 	 * THis method is used to plot chart
 	 */
-	plotCharts(data: summaryStockData): void{
+	plotCharts(data: summaryStockData): void {
 
 		console.log(data)
 
@@ -152,31 +155,31 @@ export class MainPageComponent implements OnInit {
 			},
 			series: [
 				{
-				type: 'line',
-				name: 'Target High',
-				data: [Number(data.financialData.currentPrice), data.meanDataChart.targetHigh]
+					type: 'line',
+					name: 'Target High',
+					data: [Number(data.financialData.currentPrice), data.meanDataChart.targetHigh]
 				},
 				{
-				type: 'line',
-				name: 'Target Median',
-				data: [Number(data.financialData.currentPrice), data.meanDataChart.targetMedian]
+					type: 'line',
+					name: 'Target Median',
+					data: [Number(data.financialData.currentPrice), data.meanDataChart.targetMedian]
 				},
 				{
-				type: 'line',
-				name: 'Target Low',
-				data: [ Number(data.financialData.currentPrice), data.meanDataChart.targetLow]
+					type: 'line',
+					name: 'Target Low',
+					data: [Number(data.financialData.currentPrice), data.meanDataChart.targetLow]
 				},
 			]
 		});
-  
-  /** 
-   * Convert the result to our stock data interface 
-   */
-  // convertToStockData<T extends ResponseResult>(obj: T): StockData{
-  //   return obj
-  // }
 
-		let earnings: Array<{actual: String, date: number, expected: String}> = data.earningsChart
+		/** 
+		 * Convert the result to our stock data interface 
+		 */
+		// convertToStockData<T extends ResponseResult>(obj: T): StockData{
+		//   return obj
+		// }
+
+		let earnings: Array<{ actual: String, date: number, expected: String }> = data.earningsChart
 		let actual: Array<number> = []
 		let expected: Array<number> = []
 
@@ -222,7 +225,7 @@ export class MainPageComponent implements OnInit {
 		this.apiService.updateLocalStorage(stockSymbol);
 	}
 
-	removeFlaggedStock(stockSymbol: string):void{
+	removeFlaggedStock(stockSymbol: string): void {
 		console.log("Remove this stock from flagged");
 		this.apiService.removeFromLocalStorage(stockSymbol);
 	}

@@ -7,12 +7,14 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { NewsComponent } from './components/news/news.component';
 
 const routes: Routes = [
   { path: 'profile', component: ProfileComponent,canActivate: [AuthGuardService]  },
+  { path: 'news', component:NewsComponent},
   { path: 'sign-in', component: LoginComponent },
   { path: 'home', component: MainPageComponent, canActivate: [AuthGuardService] },
-  { path: '', component: ListStocksComponent },
+  { path: '', component: MainPageComponent },
   { path: '', redirectTo: '', pathMatch: 'full' }, // redirect to `first-component`
 ];
 

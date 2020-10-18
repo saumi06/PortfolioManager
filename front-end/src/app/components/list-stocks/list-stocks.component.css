@@ -2,3 +2,6 @@
     background-color: silver;
     cursor: pointer;
 }
+.listStocks:hover{
+    cursor: pointer;
+}

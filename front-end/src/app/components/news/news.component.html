@@ -1,27 +1,52 @@
-<div class="container">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th class="display-4">General news</th>
-            </tr>
-        </thead>
+<div class="container-fluid">
+    <div *ngIf="(user | async)?.uid">
+        <div class="sidenav">
 
-        <tbody>
-            <tr *ngFor="let new of news">
-                <td>
-                    <tr>
-                        <ul>
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" routerLink="/home" aria-selected="true">Home</a>
+            <a href="#">Wallet</a>
+            <a class="nav-link" id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" routerLink="/news" aria-selected="true">News</a>
+            <a href="#">Messages</a>
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" routerLink="/profile" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" (click)="logOut()" role="tab" aria-controls="pills-profile" aria-selected="false">Log Out</a>
+            <a href="#">Help</a>
+        </div>
+    </div>
+    <div *ngIf="!(user | async)?.uid">
+        <!-- Sidebar  -->
+        <div class="sidenav">
 
-                            <li>
-                                <a href={{new.link}}>{{new.title}}</a>
-                            </li>
-                            <p> {{new.summary}}</p>
-                        </ul>
-                    </tr>
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" role="tab" routerLink="/home" aria-controls="pills-home" aria-selected="true">Home</a>
+            <a class="nav-link" id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" routerLink="/news" aria-selected="true">News</a>
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" routerLink="/sign-in" role="tab" aria-controls="pills-profile" aria-selected="false">Login</a>
+            <a href="#">Help</a>
+        </div>
+    </div>
+    <div class="main">
+        <h3 class="display-6">General News</h3>
+        <table class="table table-striped">
+            <!-- <thead>
+                <tr>
+                    <th class="display-6">General news</th>
+                </tr>
+            </thead> -->
 
-                </td>
-            </tr>
+            <tbody>
+                <tr *ngFor="let new of news">
+                    <td>
+                        <tr>
+                            <ul>
 
-        </tbody>
-    </table>
+                                <li>
+                                    <a href={{new.link}}>{{new.title}}</a>
+                                </li>
+                                <p> {{new.summary}}</p>
+                            </ul>
+                        </tr>
+
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
 </div>

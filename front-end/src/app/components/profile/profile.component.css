@@ -1,14 +1,75 @@
-.profile-image{
-    max-width: 120px;;
+.profile-image {
+    max-width: 120px;
+    ;
 }
-.nav-item a:hover{
+
+.nav-item a:hover {
     background-color: silver;
     cursor: pointer;
 }
 
-.someElement:active{
+
+/* .someElement:active{
     transition: all 1s ease-out;
     /* -webkit-animation: fadeOut 500ms;
     -moz-animation: fadeOut 500ms;
     animation: fadeOut 500ms; */
+
+*/ .sidenav {
+    height: 100%;
+    /* Full-height: remove this if you want "auto" height */
+    width: 150px;
+    /* Set the width of the sidebar */
+    position: fixed;
+    /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1;
+    /* Stay on top */
+    top: 0;
+    /* Stay at the top */
+    left: 0;
+    background-color: #111;
+    /* Black */
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 20px;
+}
+
+.sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.main {
+    margin-left: 160px;
+    /* Same as the width of the sidenav */
+    /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
 }

@@ -1,4 +1,5 @@
 import { ApiServiceService } from './../../services/api-service.service';
+import { AuthService } from '../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,12 +10,14 @@ import { Component, OnInit } from '@angular/core';
 export class NewsComponent implements OnInit {
 
   news;
- 
+  user;
+  data: object; 
   
-  constructor(private Newsservice: ApiServiceService) {
+  constructor(private Newsservice: ApiServiceService,private authService: AuthService) {
+    this.user = this.authService.authInfo;
    
   }
-  data: object;
+ 
   ngOnInit() {
     this.news = this.Newsservice.getnews().subscribe(data => {
       console.log(data);
@@ -22,6 +25,10 @@ export class NewsComponent implements OnInit {
       this.news = data['items'].result;
     });
 
+  }
+  
+  logOut() {
+    this.authService.logout();
   }
 }
 

@@ -66,25 +66,21 @@ export class ListStocksComponent implements OnInit {
 
 		}
 	}
-	
-
-
-
 	/**
 	 * Open The data regarding a stock
 	 */
 	openData(stockSymbol: string) {
 		// check if user is logged in
-		if (this.authService.authInfo) {
-			// TODO call another component
-			this.getStockData.emit(stockSymbol);
-		} else {    // if not do not display alert
-
+		// if (this.authService.authInfo) {
+		// 	// TODO call another component
+		// 	this.getStockData.emit(stockSymbol);
+		// } else {    // if not do not display alert
+			console.log("Could not open!");
 			this.toastr.error('To view additional information', 'Please login', {
 				timeOut: 3000
 			});
 			console.log(stockSymbol);
-		}
+		// }
 	}
 
 

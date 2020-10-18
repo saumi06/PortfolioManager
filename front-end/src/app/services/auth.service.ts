@@ -32,7 +32,8 @@ export class AuthService {
 
     this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((user) => { console.log(user); });
-      this.router.navigate(['/home']);
+      this.router.navigate(['/profile']);
+     
   }
   logout() {
     this.afAuth.signOut().then(() => { console.log('logged out') });
@@ -40,5 +41,6 @@ export class AuthService {
     this.toastr.success('Successfully Logged Out', 'Congratulations', {
       timeOut: 3000
     });
+    this.router.navigate(['/home']);
   }
 }
