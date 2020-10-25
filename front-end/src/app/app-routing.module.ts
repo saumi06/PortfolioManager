@@ -8,8 +8,10 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NewsComponent } from './components/news/news.component';
+import { HelpComponent } from './components/help/help.component';
 
 const routes: Routes = [
+  { path: 'help' , component: HelpComponent},
   { path: 'profile', component: ProfileComponent,canActivate: [AuthGuardService]  },
   { path: 'news', component:NewsComponent},
   { path: 'sign-in', component: LoginComponent },

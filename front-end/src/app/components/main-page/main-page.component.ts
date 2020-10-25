@@ -4,7 +4,8 @@ import { ApiServiceService } from '../../services/api-service.service';
 import { HelperServiceService } from '../../services/helper-service.service';
 import { AuthService } from '../../services/auth.service';
 import { Chart } from 'angular-highcharts';
-import * as $ from 'jquery';
+import { faHome, faCoffee,faWallet, faNewspaper,faComments,faUser,faSignOutAlt,faQuestion } from '@fortawesome/free-solid-svg-icons';
+
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -16,6 +17,14 @@ import { ToastrService } from 'ngx-toastr';
 
 export class MainPageComponent implements OnInit {
 
+	faHome = faHome;
+	faCoffee = faCoffee;
+	faWallet = faWallet;
+	faNews = faNewspaper;
+	faComments = faComments;
+	faUser = faUser;
+	faSignOutAlt = faSignOutAlt; 
+	faHelp = faQuestion;
 	interestedStocks: ResponseResult;
 	// store the data of the stock that is clicked on or searched
 	stockFocusData: ResponseResult;

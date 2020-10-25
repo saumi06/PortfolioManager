@@ -3,11 +3,10 @@
         <div class="sidenav">
 
             <a class="nav-link" id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" routerLink="/home" aria-selected="true">Home</a>
-
             <a class="nav-link" id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" routerLink="/news" aria-selected="true">News</a>
 
             <a class="nav-link active" id="pills-profile-tab" data-toggle="pill" routerLink="/sign-in" role="tab" aria-controls="pills-profile" aria-selected="false">Login</a>
-            <a href="#">Help</a>
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" routerLink="/help" role="tab" aria-controls="pills-profile" aria-selected="false">Help</a>
         </div>
 
         <div class="main">
@@ -28,4 +27,6 @@
             </div>
         </div>
     </div>
-</div>
+    <div *ngIf="(user | async)?.uid">
+        <app-profile></app-profile>
+    </div>

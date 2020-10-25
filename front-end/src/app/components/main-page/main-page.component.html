@@ -2,13 +2,20 @@
 <div *ngIf="(user | async)?.uid">
     <div class="sidenav">
 
-        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" routerLink="/home" aria-selected="true">Home</a>
-        <a href="#">Wallet</a>
-        <a class="nav-link" id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" routerLink="/news" aria-selected="true">News</a>
-        <a href="#">Messages</a>
-        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" routerLink="/profile" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</a>
-        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" (click)="logOut()" role="tab" aria-controls="pills-profile" aria-selected="false">Log Out</a>
-        <a href="#">Help</a>
+        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" routerLink="/home" aria-selected="true">
+            <fa-icon [icon]="faHome"></fa-icon>Home</a>
+        <a href="#">
+            <fa-icon [icon]="faWallet"></fa-icon>Wallet</a>
+        <a class="nav-link" id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" routerLink="/news" aria-selected="true">
+            <fa-icon [icon]="faNews"></fa-icon>News</a>
+        <a href="#">
+            <fa-icon [icon]="faComments"></fa-icon>Messages</a>
+        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" routerLink="/profile" role="tab" aria-controls="pills-profile" aria-selected="false">
+            <fa-icon [icon]="faUser"></fa-icon>Profile</a>
+        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" (click)="logOut()" role="tab" aria-controls="pills-profile" aria-selected="false">
+            <fa-icon [icon]="faSignOutAlt"></fa-icon>Log Out</a>
+        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" routerLink="/help" role="tab" aria-controls="pills-profile" aria-selected="false">
+            <fa-icon [icon]="faHelp"></fa-icon>Help</a>
     </div>
 
     <div class="main">
@@ -32,7 +39,7 @@
         </div>
 
         <div class="col list-summary-main-page">
-            <h3 class="display-6">Detailed Summary</h3>
+            <h2 class="display-6">Detailed Summary</h2>
         </div>
 
         <!--- CURRENT CHANGE-->
@@ -102,7 +109,7 @@
         <a class="nav-link active" id="pills-home-tab" data-toggle="pill" role="tab" routerLink="/home" aria-controls="pills-home" aria-selected="true">Home</a>
         <a class="nav-link" id="pills-home-tab" data-toggle="pill" role="tab" aria-controls="pills-home" routerLink="/news" aria-selected="true">News</a>
         <a class="nav-link" id="pills-profile-tab" data-toggle="pill" routerLink="/sign-in" role="tab" aria-controls="pills-profile" aria-selected="false">Login</a>
-        <a href="#">Help</a>
+        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" routerLink="/help" role="tab" aria-controls="pills-profile" aria-selected="false">Help</a>
     </div>
 
     <div class="main">

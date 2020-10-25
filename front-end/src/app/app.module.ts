@@ -14,6 +14,7 @@ import { ListStocksComponent } from './components/list-stocks/list-stocks.compon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
  
 import { ToastrModule } from 'ngx-toastr';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { environment } from 'src/environments/environment';
 
@@ -26,7 +27,7 @@ import { ChartModule } from 'angular-highcharts';
 import { ColorGeneratorPipe } from './pipes/color-generator.pipe';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NewsComponent } from './components/news/news.component';
-import { HelpComponent } from './help/help.component';
+import { HelpComponent } from './components/help/help.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { HelpComponent } from './help/help.component';
     FormsModule,
     ChartModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot() // ToastrModule added
+    ToastrModule.forRoot(), // ToastrModule added
+    FontAwesomeModule
   ],
   providers: [AuthService,AuthGuardService],
   bootstrap: [AppComponent]
